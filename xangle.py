@@ -1,6 +1,6 @@
 import os
-import pprint
 from typing import Dict, List
+
 import requests
 
 
@@ -15,7 +15,12 @@ class Xangle(object):
         self.headers = {"X-XANGLE_API_KEY": api_key}
         self.baseurl = "https://pro-api.xangle.io/v1/"
 
-    def get_disclosure_detail(self, disclosure_id: str, lang: str = "en") -> Dict:
+    # https://pro-api.xangle.io/#operation/disclosure-detail
+    def get_disclosure_detail(
+            self,
+            disclosure_id: str,
+            lang: str = "en"
+    ) -> Dict:
         try:
             response = requests.get(
                 "https://pro-api.xangle.io/v1/disclosure/detail",
@@ -26,13 +31,14 @@ class Xangle(object):
         except requests.exceptions.ConnectionError as e:
             return {"error": f"{e}"}
 
+    # https://pro-api.xangle.io/#operation/disclosure-list-all
     def get_disclosure_list_all(
-        self,
-        lang: str = "en",
-        page: int = 0,
-        status: str = "public",
-        project_ids: List[str] = [],
-        exclude_types: List[str] = [],
+            self,
+            lang: str = "en",
+            page: int = 0,
+            project_ids: List[str] = [],
+            exchange: str = None,
+            exclude_types: List[str] = [],
     ) -> Dict:
         try:
             response = requests.get(
@@ -41,8 +47,8 @@ class Xangle(object):
                 params={
                     "lang": lang,
                     "page": page,
-                    "status": status,
                     "project_ids": project_ids,
+                    "exchange": exchange,
                     "exclude_types": exclude_types,
                 },
             )
@@ -50,12 +56,13 @@ class Xangle(object):
         except requests.exceptions.ConnectionError as e:
             return {"error": f"{e}"}
 
+    # https://pro-api.xangle.io/#operation/disclosure-list-project
     def get_disclosure_list_project(
-        self,
-        project_ids: List[str],
-        lang: str = "en",
-        page: int = 0,
-        exclude_types: List[str] = [],
+            self,
+            project_ids: str,
+            lang: str = "en",
+            page: int = 0,
+            exclude_types: List[str] = [],
     ) -> Dict:
         try:
             response = requests.get(
