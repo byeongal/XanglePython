@@ -110,3 +110,20 @@ class Xangle(object):
             return response.json()
         except requests.exceptions.ConnectionError as e:
             return {"error": f"{e}"}
+
+    # https://pro-api.xangle.io/v1/index/xangle-bluechip
+    def get_xangle_bluechip(
+            self,
+            reference_timestamp: str
+    ) -> Dict:
+        try:
+            response = requests.get(
+                "https://pro-api.xangle.io/v1/index/xangle-bluechip",
+                headers=self.headers,
+                params={
+                    "reference_timestamp": reference_timestamp
+                },
+            )
+            return response.json()
+        except requests.exceptions.ConnectionError as e:
+            return {"error": f"{e}"}
