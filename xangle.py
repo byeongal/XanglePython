@@ -30,6 +30,23 @@ class Xangle(object):
         except requests.exceptions.ConnectionError as e:
             return {"error": f"{e}"}
 
+    # https://pro-api.xangle.io/#operation/project-list
+    def search_project(
+            self,
+            search_type: str,
+            symbol: str = None,
+            token_address: str = None,
+    ) -> Dict:
+        try:
+            response = requests.get(
+                "https://pro-api.xangle.io/v1/project/search",
+                headers=self.headers,
+                params={"search_type": search_type, "symbol": symbol, "token_address": token_address},
+            )
+            return response.json()
+        except requests.exceptions.ConnectionError as e:
+            return {"error": f"{e}"}
+
     # https://pro-api.xangle.io/#operation/disclosure-detail
     def get_disclosure_detail(
             self,
