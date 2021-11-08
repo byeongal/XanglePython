@@ -56,9 +56,10 @@ class Xangle(object):
         except requests.exceptions.ConnectionError as e:
             return {"error": f"{e}"}
 
+    # https://pro-api.xangle.io/#operation/disclosure-list-project
     def get_disclosure_list_project(
             self,
-            project_ids: List[str],
+            project_ids: str,
             lang: str = "en",
             page: int = 0,
             exclude_types: List[str] = [],
