@@ -15,6 +15,38 @@ class Xangle(object):
         self.headers = {"X-XANGLE_API_KEY": api_key}
         self.baseurl = "https://pro-api.xangle.io/v1/"
 
+    # https://pro-api.xangle.io/#operation/project-list
+    def get_project_list(
+            self,
+            page: int = 0
+    ) -> Dict:
+        try:
+            response = requests.get(
+                "https://pro-api.xangle.io/v1/project/list",
+                headers=self.headers,
+                params={"page": page},
+            )
+            return response.json()
+        except requests.exceptions.ConnectionError as e:
+            return {"error": f"{e}"}
+
+    # https://pro-api.xangle.io/#operation/project-list
+    def search_project(
+            self,
+            search_type: str,
+            symbol: str = None,
+            token_address: str = None,
+    ) -> Dict:
+        try:
+            response = requests.get(
+                "https://pro-api.xangle.io/v1/project/search",
+                headers=self.headers,
+                params={"search_type": search_type, "symbol": symbol, "token_address": token_address},
+            )
+            return response.json()
+        except requests.exceptions.ConnectionError as e:
+            return {"error": f"{e}"}
+
     # https://pro-api.xangle.io/#operation/disclosure-detail
     def get_disclosure_detail(
             self,
