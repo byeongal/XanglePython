@@ -146,3 +146,39 @@ class Xangle(object):
             return response.json()
         except requests.exceptions.ConnectionError as e:
             return {"error": f"{e}"}
+
+    # https://pro-api.xangle.io/v1/index/xangle-bluechip-batch
+    def get_xangle_bluechip_batch(
+            self,
+            start_timestamp: str,
+            end_timestamp: str
+    ) -> Dict:
+        try:
+            response = requests.get(
+                "https://pro-api.xangle.io/v1/index/xangle-bluechip-batch",
+                headers=self.headers,
+                params={
+                    "start_timestamp": start_timestamp,
+                    "end_timestamp": end_timestamp
+                },
+            )
+            return response.json()
+        except requests.exceptions.ConnectionError as e:
+            return {"error": f"{e}"}
+
+    # https://pro-api.xangle.io/v1/index/xangle-largecap
+    def get_xangle_largecap(
+            self,
+            reference_timestamp: str
+    ) -> Dict:
+        try:
+            response = requests.get(
+                "https://pro-api.xangle.io/v1/index/xangle-largecap",
+                headers=self.headers,
+                params={
+                    "reference_timestamp": reference_timestamp
+                },
+            )
+            return response.json()
+        except requests.exceptions.ConnectionError as e:
+            return {"error": f"{e}"}
