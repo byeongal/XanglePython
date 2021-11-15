@@ -16,6 +16,8 @@ from xangle import Xangle
 
 xangle = Xangle(api_key = "<YOUR_XANGLE_API_KEY>")
 ```
+
+```json
 {
   'data': {
     'projects': [
@@ -430,4 +432,3 @@ xangle = Xangle(api_key = "<YOUR_XANGLE_API_KEY>")
   }
 }
 ```
-
