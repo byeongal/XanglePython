@@ -1,5 +1,5 @@
 import os
-from typing import Dict, List
+from typing import Dict, List, Literal
 
 import requests
 
@@ -66,10 +66,43 @@ class Xangle(object):
     # https://pro-api.xangle.io/#operation/project-list
     def search_project(
         self,
-        search_type: str,
+        search_type: Literal["symbol", "token_address"],
         symbol: str = None,
         token_address: str = None,
     ) -> Dict:
+        """_summary_
+
+        Args:
+            search_type (Literal["symbol", "token_address"]): Type of search: [symbol, token_address]
+            symbol (str, optional): Symbol of the project. (BTC, ETH, ...)
+            token_address (str, optional): Token's contract address representing the project. (Only supported for Ethereum)
+        Returns:
+            Dict: application/json Object about information of symbol or token address
+        Example:
+            >>> search_project("symbol", "BTC")
+            {
+                "data": {
+                    "projects": [
+                        {
+                            "name": "EXPORT MOTORS PLATFORM",
+                            "onchain_ready": False,
+                            "onchain_type": "token",
+                            "project_id": "61244dff2aee1c486071a843",
+                            "status": "active",
+                            "symbol": " EMP"
+                        },
+                        ...
+                    ]
+                },
+                "status": {
+                    "timestamp": "2022-04-04T08:17:02.177326", 
+                    "error_code": 0, 
+                    "error_message": None, 
+                    "credit": 1, 
+                    "current_credit": 1999997
+                }
+            }
+        """
         try:
             response = requests.get(
                 "https://pro-api.xangle.io/v1/project/search",
