@@ -70,8 +70,8 @@ class Xangle(object):
         symbol: str = None,
         token_address: str = None,
     ) -> Dict:
-        """_summary_
-
+        """
+        Search projects with symbol or token address.
         Args:
             search_type (Literal["symbol", "token_address"]): Type of search: [symbol, token_address]
             symbol (str, optional): Symbol of the project. (BTC, ETH, ...)
